@@ -1,11 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Evaluación de seguridad de contraseña</title>
+		<link rel="stylesheet" href="home.css" />
+	</head>
+	<body>
+		<h1>¿Qué tan segura es mi contraseña?</h1>
+
+		<form id="password-form">
+			<label for="password">Ingresa tu contraseña:</label><br />
+			<input type="password" id="password" name="password" required /><br /><br />
+			<button type="submit">Verificar seguridad</button>
+		</form>
+
+		<div id="password-strength" class="password-strength"></div>
+		<div id="crack-time" class="password-strength"></div>
+		<div id="entropy" class="password-strength"></div>
+
+		<script>
+			document.getElementById('password-form').addEventListener('submit', function (event) {
+				event.preventDefault()
+
+				var password = document.getElementById('password').value
+				var strengthMessage = document.getElementById('password-strength')
+				var crackTimeMessage = document.getElementById('crack-time')
+				var entropyMessage = document.getElementById('entropy')
+
+				// Comprobar la fortaleza de la contraseña
+				var strength = getPasswordStrength(password)
+
+				// Mostrar el mensaje de fortaleza
+				strengthMessage.textContent = 'Fortaleza de la contraseña: ' + strength.text
+				strengthMessage.className = 'password-strength strength-' + strength.level
+
+				// Calcular el tiempo estimado de descifrado
+				var crackTime = estimateCrackTime(password)
+				crackTimeMessage.textContent = 'Tiempo estimado para descifrar: ' + crackTime
+
+				// Calcular la entropía
+				var entropy = calculateEntropy(password)
+				entropyMessage.textContent = 'Entropía de la contraseña: ' + entropy + ' bits.'
+			})
+
+			// Función para evaluar la fortaleza de la contraseña
+			function getPasswordStrength(password) {
+				var strength = { text: 'Muy débil', level: 'weak' }
+
+				var lengthCriteria = password.length >= 8
+				var numberCriteria = /[0-9]/.test(password)
+				var uppercaseCriteria = /[A-Z]/.test(password)
+				var specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+
+				if (lengthCriteria && numberCriteria && uppercaseCriteria && specialCharCriteria) {
+					strength = { text: 'Muy fuerte', level: 'strong' }
+				} else if (lengthCriteria && (numberCriteria || uppercaseCriteria)) {
+					strength = { text: 'Mediana', level: 'medium' }
+				} else if (lengthCriteria) {
+					strength = { text: 'Débil', level: 'weak' }
+				}
+
+				// Comprobar contraseñas comunes
+				if (isCommonPassword(password)) {
+					strength = { text: 'Contraseña muy común', level: 'weak' }
+				}
+
+				// Comprobar patrones previsibles
+				if (hasPredictablePatterns(password)) {
+					strength = { text: 'Patrón predecible encontrado', level: 'weak' }
+				}
+
+				// Comprobar patrones secuenciales o repetidos
+				if (hasSequentialOrRepeatedPatterns(password)) {
+					strength = { text: 'Patrón secuencial o repetido', level: 'weak' }
+				}
+
+				// Comprobar contra un diccionario
+				if (isDictionaryWord(password)) {
+					strength = { text: 'Palabra del diccionario', level: 'weak' }
+				}
+
+				return strength
+			}
+
+			// Función para comprobar contraseñas comunes
+			function isCommonPassword(password) {
+				const commonPasswords = [
+					'123456',
+					'password',
+					'qwerty',
+					'123456789',
+					'letmein',
+					'welcome',
+					'abc123',
+					'password1',
+					'iloveyou',
+					'admin',
+					'12345',
+					'123qwe',
+					'qwerty123',
+					'sunshine',
+					'football',
+					'1234',
+					'monkey',
+					'123123',
+				]
+				return commonPasswords.includes(password)
+			}
+
+			// Función para comprobar patrones previsibles
+			function hasPredictablePatterns(password) {
+				var commonPatterns = [
+					'123456',
+					'abcdef',
+					'qwerty',
+					'password',
+					'letmein',
+					'qwertyuiop',
+					'123123',
+				]
+				return commonPatterns.some((pattern) => password.toLowerCase().includes(pattern))
+			}
+
+			// Función para detectar patrones secuenciales o repetidos
+			function hasSequentialOrRepeatedPatterns(password) {
+				var repeatPatterns = /(\w)\1{2,}/ // 3 o más caracteres repetidos
+				var sequentialPatterns = /123|234|345|456|567|678|789|abc|bcd|cde|def|efg/
+				return repeatPatterns.test(password) || sequentialPatterns.test(password)
+			}
+
+			// Función para verificar si la contraseña es una palabra común del diccionario
+			function isDictionaryWord(password) {
+				const dictionaryWords = [
+					'password',
+					'admin',
+					'welcome',
+					'letmein',
+					'monkey',
+					'football',
+				]
+				return dictionaryWords.includes(password.toLowerCase())
+			}
+
+			// Función para estimar el tiempo de descifrado basado en la longitud y complejidad de la contraseña
+			function estimateCrackTime(password) {
+				var lowercase = 'abcdefghijklmnopqrstuvwxyz'
+				var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+				var digits = '0123456789'
+				var special = '!@#$%^&*(),.?":{}|<>'
+				var allCharacters = lowercase + uppercase + digits + special
+
+				var passwordLength = password.length
+				var charsetSize = lowercase.length
+
+				if (/[A-Z]/.test(password)) charsetSize += uppercase.length
+				if (/\d/.test(password)) charsetSize += digits.length
+				if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) charsetSize += special.length
+
+				var combinations = Math.pow(charsetSize, passwordLength)
+				var attemptsPerSecond = 1e12 // Suposición de 1 billón de intentos por segundo
+				var timeInSeconds = combinations / attemptsPerSecond
+
+				return formatTime(timeInSeconds)
+			}
+
+			// Función para formatear el tiempo estimado
+			function formatTime(seconds) {
+				if (seconds < 60) {
+					return seconds.toFixed(2) + ' segundos'
+				}
+				var minutes = seconds / 60
+				if (minutes < 60) {
+					return minutes.toFixed(2) + ' minutos'
+				}
+				var hours = minutes / 60
+				if (hours < 24) {
+					return hours.toFixed(2) + ' horas'
+				}
+				var days = hours / 24
+				if (days < 365) {
+					return days.toFixed(2) + ' días'
+				}
+				var years = days / 365
+				return years.toFixed(2) + ' años'
+			}
+
+			// Función para calcular la entropía de la contraseña
+			function calculateEntropy(password) {
+				var lowercase = 'abcdefghijklmnopqrstuvwxyz'
+				var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+				var digits = '0123456789'
+				var special = '!@#$%^&*(),.?":{}|<>'
+				var charsetSize = lowercase.length
+
+				if (/[A-Z]/.test(password)) charsetSize += uppercase.length
+				if (/\d/.test(password)) charsetSize += digits.length
+				if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) charsetSize += special.length
+
+				var entropy = Math.log2(Math.pow(charsetSize, password.length))
+				return entropy.toFixed(2) // Redondeamos a dos decimales
+			}
+		</script>
+	</body>
 </html>

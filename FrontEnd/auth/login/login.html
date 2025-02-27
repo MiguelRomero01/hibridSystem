@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Supabase Usuarios</title>
+    <!-- Cargar Supabase desde un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="/BackEnd/Queries/GET/auth/getUserCredentials.js"></script>
 </head>
 <body>
-    
+    <button onclick="obtenerUsuarios()">Obtener Usuarios</button>
+    <ul id="lista"></ul>
 </body>
 </html>

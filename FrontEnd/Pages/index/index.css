@@ -1,0 +1,60 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+.sidebar {
+    width: 25%;
+    background: #d1d1d1;
+    padding: 20px;
+    height: 100vh;
+}
+.sidebar h2 {
+    margin-top: 0;
+}
+.password-item {
+    background: #bfbfbf;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+}
+.input-field, .details-box {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #d1d1d1;
+    border: none;
+    border-radius: 5px;
+}
+.button {
+    background: #bfbfbf;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.bottom-right {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #d1d1d1;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.profile-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: #bfbfbf;
+    border-radius: 50%;
+}

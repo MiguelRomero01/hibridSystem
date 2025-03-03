@@ -1,7 +1,7 @@
-import { supabase } from "../../conectionDB.js"; // Importar Supabase correctamente
+import { supabase } from "../../conectionDB.js"; // Importa el cliente de Supabase
 
-// Función para obtener datos de la tabla "usuario"
-async function obtenerUsuarios() {
+// Función para obtener datos de la tabla "USUARIO"
+export async function obtenerUsuarios() {
     let { data, error } = await supabase.from("USUARIO").select("*");
 
     if (error) {
@@ -9,9 +9,9 @@ async function obtenerUsuarios() {
         return;
     }
 
-    // Mostrar datos en la página
     const lista = document.getElementById("lista");
     lista.innerHTML = ""; // Limpiar lista antes de agregar
+
     data.forEach(user => {
         let li = document.createElement("li");
         li.textContent = `${user.Username}: ${user.password}`;
@@ -19,5 +19,5 @@ async function obtenerUsuarios() {
     });
 }
 
-// Hacer que la función esté accesible desde el navegador
+// Hacer que la función esté accesible en el navegador
 window.obtenerUsuarios = obtenerUsuarios;

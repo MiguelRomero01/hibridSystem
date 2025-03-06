@@ -1,111 +1,110 @@
+/* Reset básico */
 body {
-    background-color: #343a40;
-    margin: 0;
-    padding: 0;
+    background-color: #343a40; /* Color de fondo oscuro */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh; 
+    height: 100vh;
+    margin: 0;
 }
 
+/* Contenedor principal */
 .container-form {
     display: flex;
-    align-items: center;
-    background-color: #343a40;
+    align-items: stretch;
+    background-color: #343a40; /* Asegurar fondo oscuro */
     padding: 0.5rem;
     border-radius: 0.5rem;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    max-width: 1000px; /* Ajusta el ancho total */
+    max-width: 900px;
+    overflow: hidden;
 }
 
+/* Imagen del formulario */
 .form-image {
-    width: 300px; /* Ajusta según el tamaño de la imagen */
+    flex: 1;
+    width: 50%;
     height: auto;
-    border-radius: 0.5rem;
-    margin-right: 2rem; /* Espacio entre la imagen y el formulario */
+    object-fit: cover;
+    border-radius: 0.5rem 0 0 0.5rem;
 }
 
-form {
-    max-width: 500px;
-    width: 100%;
+/* Contenedor del formulario */
+.form-content {
+    flex: 1;
     padding: 2rem;
-    border-radius: 0.5rem;
     background-color: #495057;
     color: #e9ecef;
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-h1 {
+    justify-content: center;
     text-align: center;
-    margin-bottom: 1.5rem;
-    color: #f8f9fa; 
 }
 
+/* Estilos de los inputs */
 .inputs-form {
-    width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 15px;
+    text-align: left;
 }
 
 .inputs-form label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #e9ecef; 
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .inputs-form input {
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #495057; 
-    border-radius: 0.25rem;
-    background-color: #6c757d; 
-    color: #e9ecef; 
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
+/* Estilo del checkbox */
 .Check-box {
-    width: 100%;
-    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.Check-box label {
-    color: #e9ecef;
+.Check-box input {
+    width: auto;
 }
 
+/* Botón de envío */
 #boton {
-    width: 100%;
     text-align: center;
 }
 
-.btn-outline-light {
+#btn-signIn {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #e9ecef; 
-    color: #e9ecef; 
-    background-color: #343a40; 
-    border-radius: 0.25rem;
-    transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.btn-outline-light:hover {
-    color: #343a40; 
-    background-color: #e9ecef; 
-    border-color: #007bff; 
+#btn-signIn:hover {
+    background-color: #218838;
 }
 
-/* Ajuste para pantallas pequeñas */
+/* Responsividad */
 @media (max-width: 768px) {
     .container-form {
         flex-direction: column;
-        text-align: center;
     }
 
     .form-image {
-        margin-bottom: 1.5rem;
-        margin-right: 0;
-        width: 80%;
+        display: none; /* Ocultar imagen en pantallas pequeñas */
+    }
+
+    .form-content {
+        border-radius: 0.5rem;
     }
 }

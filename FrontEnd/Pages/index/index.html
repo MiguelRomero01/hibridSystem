@@ -7,27 +7,23 @@
     <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Tus contraseñas</h2>
-        <div class="password-item">Título escogido por el usuario</div>
-        <div class="password-item">Título escogido por el usuario</div>
-    </div>
-    <div class="main-content">
-        <div class="profile-icon"></div>
-        <h1>Titulo</h1>
-        <input type="text" class="input-field" placeholder="Contraseña maestra">
-        <button class="button">Probar contraseña</button>
-        <div>
-            <h3>Contraseña:</h3>
-            <input type="text" class="input-field" placeholder="Contraseña a mostrar">
+    <form>
+        <h1>
+            Login
+        </h1>
+        <div class="inputs-form">
+            <label for="Usuario">Usuario:</label>
+            <input type="text" id="Usuario" placeholder="Ingrese su usuario">
         </div>
-        <div>
-            <h3>Detalles</h3>
-            <div class="details-box">Detalles a mostrar</div>
+        <div class="inputs-form">
+            <label for="Contraseña">Contraseña:</label>
+            <input type="password" id="Contraseña" placeholder="•••••••••••••">
         </div>
-    </div>
-    <div class="bottom-right">+</div>
-
-    
+       
+        <div class="inputs-form" id="boton">
+            <button type="button" class="btn btn-outline-light">Ingresar</button>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js" defer></script>
     <link rel="stylesheet" href="register.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 <body>
     <div class="container-form">
         <img src="../../Assets/imagenseguro.png" alt="Registro" class="form-image">
 
         <div class="form-content">
-            <form action="registro.php" method="post" id="formRegistro">
+            <form id="formRegistro">
                 <h1>Regístrate</h1>
 
                 <div class="inputs-form">
@@ -36,15 +39,10 @@
 
                 <div class="inputs-form" id="boton">
                     <input type="submit" id="btn-signIn" value="Regístrate">
-                    <script>
-                        document.getElementById("formRegistro").addEventListener("submit", function(event) {
-                            // Redirigir al usuario a la página de login
-                            window.location.href = "../Pages/index.html";
-                        });
-                    </script>
                 </div>
             </form>
         </div>
     </div>
+    <script src="./register.js" type="module"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@ import { supabase } from "../../conectionDB.js"; // Importa el cliente de Supaba
 
 // Función para obtener datos de la tabla "USUARIO"
 export async function obtenerUsuarios() {
-    let { data, error } = await supabase.from("USUARIO").select("*");
+    let { data, error } = await supabase.from("usuario").select("*");
 
     if (error) {
         console.error("Error obteniendo datos:", error);
@@ -14,7 +14,7 @@ export async function obtenerUsuarios() {
 
     data.forEach(user => {
         let li = document.createElement("li");
-        li.textContent = `${user.Username}: ${user.password}`;
+        li.textContent = `${user.username}: ${user.password}`;
         lista.appendChild(li);
     });
 }

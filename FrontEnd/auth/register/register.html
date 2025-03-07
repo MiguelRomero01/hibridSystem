@@ -1,32 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="register.css">
+</head>
 <body>
     <div class="container-form">
         <img src="../../Assets/imagenseguro.png" alt="Registro" class="form-image">
-        <link rel="stylesheet" href="register.css">
-        <form action="/validar" method="post">
-            <h1>Regístrate</h1>
 
-            <div class="inputs-form">
-                <label for="Usuario">Usuario:</label>
-                <input type="text" id="Usuario" name="usuario" placeholder="Ingrese su usuario" required>
-            </div>
-            
-            <div class="inputs-form">
-                <label for="Contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="clave" placeholder="•••••••••••••" required>
-            </div>
-            <div class="inputs-form">
-                <label for="Contraseña">Escriba nuevamente su contraseña:</label>
-                <input type="password" id="contraseña" name="clave" placeholder="•••••••••••••" required>
-            </div>
-            
-            <div class="Check-box">
-                <label for="checheado">Acepto Términos y Condiciones</label>
-                <input type="checkbox" id="checheado" name="acepto" class="Checkboxpa" required>
-            </div>
+        <div class="form-content">
+            <form action="registro.php" method="post" id="formRegistro">
+                <h1>Regístrate</h1>
 
-            <div class="inputs-form" id="boton">
-                <input type="submit" id="btn-signIn" value="Regístrate">
-            </div>
-        </form>
+                <div class="inputs-form">
+                    <label for="usuario">Usuario:</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
+                </div>
+                
+                <div class="inputs-form">
+                    <label for="clave">Contraseña:</label>
+                    <input type="password" id="clave" name="clave" placeholder="•••••••••••••" required>
+                </div>
+                
+                <div class="inputs-form">
+                    <label for="clave_confirmacion">Escriba nuevamente su contraseña:</label>
+                    <input type="password" id="clave_confirmacion" name="clave_confirmacion" placeholder="•••••••••••••" required>
+                </div>
+                
+                <div class="Check-box">
+                    <input type="checkbox" id="checheado" name="acepto" class="Checkboxpa" required>
+                    <label for="checheado">Acepto Términos y Condiciones</label>
+                </div>
+
+                <div class="inputs-form" id="boton">
+                    <input type="submit" id="btn-signIn" value="Regístrate">
+                    <script>
+                        document.getElementById("formRegistro").addEventListener("submit", function(event) {
+                            event.preventDefault(); // Evita el envío del formulario
+                            window.location.href = "../login/login.html"; // Redirige al usuario
+                        });
+                    </script>
+                    
+                </div>
+            </form>
+        </div>
     </div>
 </body>
+</html>

@@ -38,10 +38,11 @@
                     <input type="submit" id="btn-signIn" value="Regístrate">
                     <script>
                         document.getElementById("formRegistro").addEventListener("submit", function(event) {
-                            // Redirigir al usuario a la página de login
-                            window.location.href = "../Pages/index.html";
+                            event.preventDefault(); // Evita el envío del formulario
+                            window.location.href = "../login/login.html"; // Redirige al usuario
                         });
                     </script>
+                    
                 </div>
             </form>
         </div>

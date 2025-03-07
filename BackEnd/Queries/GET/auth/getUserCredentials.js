@@ -1,23 +1,18 @@
-import { supabase } from "../../conectionDB.js"; // Importa el cliente de Supabase
+import { supabase } from "../../conectionDB.js"; // Ajusta la ruta si es necesario
 
-// Función para obtener datos de la tabla "USUARIO"
-export async function obtenerUsuarios() {
-    let { data, error } = await supabase.from("usuario").select("*");
+export async function GETuserCredentials(username) {
+    let { data, error } = await supabase
+        .from("usuario")
+        .select("password")
+        .eq("username", username)
+        .single();
 
-    if (error) {
-        console.error("Error obteniendo datos:", error);
-        return;
+    if (error || !data) {
+        console.error("Error obteniendo credenciales:", error);
+        return null;
     }
 
-    const lista = document.getElementById("lista");
-    lista.innerHTML = ""; // Limpiar lista antes de agregar
-
-    data.forEach(user => {
-        let li = document.createElement("li");
-        li.textContent = `${user.username}: ${user.password}`;
-        lista.appendChild(li);
-    });
+    return data;
 }
 
-// Hacer que la función esté accesible en el navegador
-window.obtenerUsuarios = obtenerUsuarios;
+// Asegurémonos de que no hay un export default en el archivo.

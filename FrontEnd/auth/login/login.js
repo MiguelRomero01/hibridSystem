@@ -1,11 +1,30 @@
 import { GETuserCredentials } from "/BackEnd/Queries/GET/auth/GETuserCredentials.js";
 
+// Verificar que bcrypt esté cargado
+if (typeof window.bcrypt === "undefined") {
+    console.error("❌ bcrypt no está disponible. Asegúrate de incluirlo en el HTML.");
+} else {
+    console.log("✅ bcrypt cargado correctamente.");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof window.bcrypt === "undefined") {
+        console.warn("⚠ bcrypt no está en window. Intentando cargarlo manualmente.");
+        window.bcrypt = dcodeIO.bcrypt;
+    }
+
+    if (window.bcrypt) {
+        console.log("✅ bcrypt ahora está disponible.");
+    } else {
+        console.error("❌ No se pudo cargar bcrypt.");
+    }
+});
 
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("formLogin").addEventListener("submit", async function (event) {
-        event.preventDefault(); // Evita el envío automático del formulario
-        console.log("Formulario enviado"); // Depuración
+        event.preventDefault();
+        console.log("Formulario enviado");
 
         let username = document.getElementById("Usuario").value.trim();
         let password = document.getElementById("Contraseña").value;
@@ -16,28 +35,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            // Obtener datos del usuario desde el backend
-            const userData = await GETuserCredentials(username);
+            console.log("Intentando obtener credenciales para:", username);
 
-            if (!userData) {
-                console.error("Usuario no encontrado.");
+            const userData = await GETuserCredentials(username);
+            console.log("Datos del usuario obtenidos:", userData);
+
+            if (!userData || !userData.password) {
+                console.error("Usuario no encontrado o sin contraseña.");
                 alert("Usuario no encontrado. Verifique sus credenciales.");
                 return;
             }
 
-            // Obtener la contraseña hasheada desde la base de datos
             const hashedPassword = userData.password;
+            console.log("Contraseña obtenida de la BD:", hashedPassword);
 
-            // Usar bcrypt.compare() para verificar la contraseña
+            // Validar que bcrypt esté disponible
+            if (!window.bcrypt) {
+                console.error("bcrypt no está disponible.");
+                alert("Error interno. Intente de nuevo.");
+                return;
+            }
+
+            // Comparar contraseña
             const isMatch = await window.bcrypt.compare(password, hashedPassword);
+            console.log("¿La contraseña coincide?:", isMatch);
 
             if (isMatch) {
                 console.log("Inicio de sesión exitoso.");
                 alert("Inicio de sesión exitoso.");
+                window.location.href = "/FrontEnd/Pages/home/home.html";
 
+                
 
-                // Redirigir al usuario a la página principal
-                window.location.href = "../Pages/home/home.html";
             } else {
                 console.error("Contraseña incorrecta.");
                 alert("Contraseña incorrecta.");

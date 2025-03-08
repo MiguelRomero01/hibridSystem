@@ -2,18 +2,24 @@
 
 /* Establecemos una fuente general */
 body {
-	font-family: Arial, sans-serif;
+	font-family: 'Poppins', sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: #f4f4f4;
-	color: #333;
+	background-color: #121212;
+	color: #e0e0e0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
 }
 
 /* Estilo del contenedor principal */
 h1 {
 	text-align: center;
-	color: #4caf50;
-	margin-top: 50px;
+	color: #00e676;
+	margin-bottom: 30px;
+	font-size: 28px;
+	margin-right: 30ch; 
 }
 
 /* Estilo para el formulario */
@@ -21,47 +27,63 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 30px;
+	background: #1e1e1e;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+	gap: 20px;
 }
 
 /* Estilo para el campo de la contraseña */
 #password {
-	padding: 10px;
+	padding: 12px;
 	font-size: 16px;
 	width: 300px;
-	border: 1px solid #ccc;
+	border: 1px solid #00e676;
 	border-radius: 5px;
-	margin-bottom: 20px;
 	outline: none;
+	background: #2a2a2a;
+	color: #e0e0e0;
+	transition: border 0.3s ease;
+	margin-top: 10px;
+}
+
+#password:focus {
+	border: 1px solid #76ff03;
+	box-shadow: 0 0 8px rgba(118, 255, 3, 0.7);
 }
 
 /* Estilo para el botón */
 button {
-	background-color: #4caf50;
-	color: white;
-	padding: 10px 20px;
+	background: linear-gradient(45deg, #00e676, #76ff03);
+	color: #121212;
+	padding: 12px 25px;
 	font-size: 16px;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	transition: background-color 0.3s ease;
+	transition: transform 0.2s ease, box-shadow 0.3s ease;
+	font-weight: bold;
+	margin-top: 10px;
 }
 
 /* Estilo para el botón en hover */
 button:hover {
-	background-color: #45a049;
+	transform: scale(1.05);
+	box-shadow: 0 0 12px rgba(0, 230, 118, 0.8);
 }
 
 /* Estilo para los mensajes de fuerza, tiempo y entropía */
-.password-strength {
+.password-strength, #crack-time, #entropy {
 	font-size: 18px;
-	margin-top: 20px;
 	text-align: center;
+	margin-top: 15px;
+	font-weight: bold;
 }
 
 /* Estilos según el nivel de seguridad */
 .strength-weak {
-	color: #f44336;
+	color: #ff1744;
 }
 
 .strength-medium {
@@ -69,21 +91,7 @@ button:hover {
 }
 
 .strength-strong {
-	color: #4caf50;
-}
-
-/* Estilo para el tiempo estimado de descifrado */
-#crack-time {
-	font-size: 18px;
-	text-align: center;
-	margin-top: 10px;
-}
-
-/* Estilo para la entropía */
-#entropy {
-	font-size: 18px;
-	text-align: center;
-	margin-top: 10px;
+	color: #00e676;
 }
 
 /* Estilos generales para el diseño y el espaciado */
@@ -93,13 +101,15 @@ button:hover {
 	align-items: center;
 	justify-content: center;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 30px;
 	width: 100%;
 	max-width: 600px;
-	background-color: white;
+	background: #1e1e1e;
 	border-radius: 10px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
+	gap: 20px;
 }
+
 
 /* Aseguramos que todo se vea bien en dispositivos pequeños */
 @media (max-width: 600px) {
@@ -108,11 +118,11 @@ button:hover {
 	}
 
 	#password {
-		width: 80%;
+		width: 90%;
 	}
 
 	button {
-		width: 80%;
+		width: 90%;
 	}
 
 	.password-strength {

@@ -35,44 +35,32 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            console.log("Intentando obtener credenciales para:", username);
-
             const userData = await GETuserCredentials(username);
-            console.log("Datos del usuario obtenidos:", userData);
 
             if (!userData || !userData.password) {
-                console.error("Usuario no encontrado o sin contraseña.");
                 alert("Usuario no encontrado. Verifique sus credenciales.");
                 return;
             }
 
             const hashedPassword = userData.password;
-            console.log("Contraseña obtenida de la BD:", hashedPassword);
 
             // Validar que bcrypt esté disponible
             if (!window.bcrypt) {
-                console.error("bcrypt no está disponible.");
                 alert("Error interno. Intente de nuevo.");
                 return;
             }
 
             // Comparar contraseña
             const isMatch = await window.bcrypt.compare(password, hashedPassword);
-            console.log("¿La contraseña coincide?:", isMatch);
 
             if (isMatch) {
-                console.log("Inicio de sesión exitoso.");
+                sessionStorage.setItem("Usuario", JSON.stringify(userData)) //guardar en el almacenamiento local el usuario
                 alert("Inicio de sesión exitoso.");
-                window.location.href = "/FrontEnd/Pages/home/home.html";
-
-                
-
+                window.location.href = "/Views/Pages/home/home.html";
             } else {
-                console.error("Contraseña incorrecta.");
                 alert("Contraseña incorrecta.");
             }
         } catch (error) {
-            console.error("Error en el inicio de sesión:", error);
             alert("Hubo un error en el sistema. Intente de nuevo.");
         }
     });

@@ -1,5 +1,5 @@
 import { POSTuserCredentials } from "../../../BackEnd/Queries/POST/auth/POSTuserCredentials.js";
-import { hashPassword } from "../../../BackEnd/security/cryptPassword.js";
+import { hashPassword } from "../../../BackEnd/services/cryptPassword.js";
 
 document.getElementById("formRegistro").addEventListener("submit", async function (event) {
     event.preventDefault(); // Evita el envío automático del formulario

@@ -1,9 +1,9 @@
-import { supabase } from "../../conectionDB.js"; // Ajusta la ruta si es necesario
+import { supabase } from "../../conectionDB.js";
 
 export async function GETuserCredentials(username) {
     let { data, error } = await supabase
         .from("usuario")
-        .select("password")
+        .select("PK_userId, username, password")
         .eq("username", username)
         .single();
 
@@ -15,4 +15,3 @@ export async function GETuserCredentials(username) {
     return data;
 }
 
-// Asegurémonos de que no hay un export default en el archivo.

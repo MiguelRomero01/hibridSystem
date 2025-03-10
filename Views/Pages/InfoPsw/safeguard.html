@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guardar Contraseña con Evaluación de Seguridad</title>
     <link rel="stylesheet" href="safeguard.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <div class="container">
         <h2>Guardar Información</h2>
-        <form action="guardar.php" method="POST"> <!--provicional-->
+        <form method="POST" id="saveguard-form"> <!--provicional-->
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required>
 
             <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" required></textarea>
+            <textarea id="descripcion" name="descripcion"></textarea>
 
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
@@ -26,6 +27,8 @@
             <button type="submit">Guardar</button>
         </form>
     </div>
+
+    <script src="./safeguard.js" type="module"></script>
 
     <script>
         document.getElementById('password').addEventListener('input', function () {

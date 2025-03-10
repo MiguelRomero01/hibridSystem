@@ -1,12 +1,18 @@
-import { POSTuserCredentials } from "../../../BackEnd/Queries/POST/auth/POSTuserCredentials.js";
-import { hashPassword } from "../../../BackEnd/services/cryptPassword.js";
-
 document.getElementById("formRegistro").addEventListener("submit", async function (event) {
     event.preventDefault(); // Evita el envío automático del formulario
 
     let username = document.getElementById("usuario").value;
     let password = document.getElementById("clave").value;
     let password2 = document.getElementById("clave_confirmacion").value;
+    let masterPassword = document.getElementById("clave_maestra").value;
+
+    const MASTER_PASSWORD = "12345"; // Cambia esto por la contraseña maestra real
+
+    if (masterPassword !== MASTER_PASSWORD) {
+        console.error("Contraseña maestra incorrecta.");
+        alert("Contraseña maestra incorrecta.");
+        return;
+    }
 
     if (password === password2) {
         try {
@@ -24,5 +30,6 @@ document.getElementById("formRegistro").addEventListener("submit", async functio
         }
     } else {
         console.error("Las contraseñas no coinciden.");
+        alert("Las contraseñas no coinciden.");
     }
 });

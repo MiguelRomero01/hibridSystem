@@ -23,10 +23,41 @@
     <div class="container">
         <p>Aquí están las contraseñas guardadas:</p>
         <ul>
-            <li>Contraseña 1</li>
-            <li>Contraseña 2</li>
-            <li>Contraseña 3</li>
+            <li onclick="showMasterPasswordDialog()">Contraseña 1</li>
+            <li onclick="showMasterPasswordDialog()">Contraseña 2</li>
+            <li onclick="showMasterPasswordDialog()">Contraseña 3</li>
         </ul>
     </div>
+
+    <!-- Capa de fondo -->
+    <div id="overlay" onclick="hideMasterPasswordDialog()"></div>
+
+    <!-- Cuadro de diálogo para la contraseña maestra -->
+    <div id="master-password-dialog" class="dialog">
+        <form id="master-password-form">
+            <label for="master-password">Ingresa la contraseña maestra:</label><br />
+            <input type="password" id="master-password" name="master-password" required /><br /><br />
+            <button type="button" onclick="verifyMasterPassword()">Verificar contraseña</button>
+        </form>
+    </div>
+
+    <script>
+        function showMasterPasswordDialog() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('master-password-dialog').style.display = 'block';
+        }
+
+        function hideMasterPasswordDialog() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('master-password-dialog').style.display = 'none';
+        }
+
+        function verifyMasterPassword() {
+            var masterPassword = document.getElementById('master-password').value;
+            // Aquí iría la lógica para verificar la contraseña maestra
+            alert('Contraseña maestra verificada: ' + masterPassword);
+            hideMasterPasswordDialog();
+        }
+    </script>
 </body>
 </html>

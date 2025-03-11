@@ -1,2 +1,3 @@
 export const SUPABASE_URL = "https://juwqtpuoyghebkxywzrk.supabase.co";
 export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1d3F0cHVveWdoZWJreHl3enJrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MTI2ODAwOSwiZXhwIjoyMDU2ODQ0MDA5fQ.z9069PbJOnkGMwQJJ22_enPx6gmDUla_tC_juBQdJrA";
+export const secretKey = "un lobo siempre protege a su loba"

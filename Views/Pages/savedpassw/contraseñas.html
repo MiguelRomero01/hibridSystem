@@ -6,6 +6,8 @@
     <title>Contraseñas Guardadas</title>
     <link rel="stylesheet" href="../home/navbar.css" />
     <link rel="stylesheet" href="contraseñas.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -42,22 +44,27 @@
     </div>
 
     <script>
+        //muestra un cuadro de dialogo para poner la contraseña
         function showMasterPasswordDialog() {
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('master-password-dialog').style.display = 'block';
         }
 
+        //oculta el cuadro de dialogo
         function hideMasterPasswordDialog() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('master-password-dialog').style.display = 'none';
         }
 
-        function verifyMasterPassword() {
-            var masterPassword = document.getElementById('master-password').value;
-            // Aquí iría la lógica para verificar la contraseña maestra
-            alert('Contraseña maestra verificada: ' + masterPassword);
-            hideMasterPasswordDialog();
-        }
+        //IMPORTANTE: esto debe ir en el contraseñas.js dado que ahi está la conexion con la base de datos y se debe verificar
+        // function verifyMasterPassword() {
+        //     var masterPassword = document.getElementById('master-password').value;
+        //     // Aquí iría la lógica para verificar la contraseña maestra
+        //     alert('Contraseña maestra verificada: ' + masterPassword);
+        //     hideMasterPasswordDialog();
+        // }
     </script>
+
+    <script src="contraseñas.js" type="module"></script>
 </body>
 </html>

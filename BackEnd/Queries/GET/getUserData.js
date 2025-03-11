@@ -1,4 +1,4 @@
-import { supabase } from "../conectionDB";
+import { supabase } from "../conectionDB.js";
 
 export async function GETuserData(userId){
      let {data, error} = await supabase

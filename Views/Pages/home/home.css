@@ -2,130 +2,129 @@
 
 /* Establecemos una fuente general */
 body {
-	font-family: 'Poppins', sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #121212;
-	color: #e0e0e0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 /* Estilo del contenedor principal */
 h1 {
-	text-align: center;
-	color: #00e676;
-	margin-bottom: 30px;
-	font-size: 28px;
-	margin-right: 30ch; 
+    text-align: center;
+    color: #00e676;
+    margin-bottom: 30px;
+    font-size: 28px;
+    margin-right: 30ch; 
 }
 
 /* Estilo para el formulario */
 #password-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background: #1e1e1e;
-	padding: 30px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
-	gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+    gap: 20px;
 }
 
 /* Estilo para el campo de la contraseña */
 #password {
-	padding: 12px;
-	font-size: 16px;
-	width: 300px;
-	border: 1px solid #00e676;
-	border-radius: 5px;
-	outline: none;
-	background: #2a2a2a;
-	color: #e0e0e0;
-	transition: border 0.3s ease;
-	margin-top: 10px;
+    padding: 12px;
+    font-size: 16px;
+    width: 300px;
+    border: 1px solid #00e676;
+    border-radius: 5px;
+    outline: none;
+    background: #2a2a2a;
+    color: #e0e0e0;
+    transition: border 0.3s ease;
+    margin-top: 10px;
 }
 
 #password:focus {
-	border: 1px solid #76ff03;
-	box-shadow: 0 0 8px rgba(118, 255, 3, 0.7);
+    border: 1px solid #76ff03;
+    box-shadow: 0 0 8px rgba(118, 255, 3, 0.7);
 }
 
 /* Estilo para el botón */
 button {
-	background: linear-gradient(45deg, #00e676, #76ff03);
-	color: #121212;
-	padding: 12px 25px;
-	font-size: 16px;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	transition: transform 0.2s ease, box-shadow 0.3s ease;
-	font-weight: bold;
-	margin-top: 10px;
+    background: linear-gradient(45deg, #00e676, #76ff03);
+    color: #121212;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 /* Estilo para el botón en hover */
 button:hover {
-	transform: scale(1.05);
-	box-shadow: 0 0 12px rgba(0, 230, 118, 0.8);
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(0, 230, 118, 0.8);
 }
 
 /* Estilo para los mensajes de fuerza, tiempo y entropía */
 .password-strength, #crack-time, #entropy {
-	font-size: 18px;
-	text-align: center;
-	margin-top: 15px;
-	font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
 }
 
 /* Estilos según el nivel de seguridad */
 .strength-weak {
-	color: #ff1744;
+    color: #ff1744;
 }
 
 .strength-medium {
-	color: #ff9800;
+    color: #ff9800;
 }
 
 .strength-strong {
-	color: #00e676;
+    color: #00e676;
 }
 
 /* Estilos generales para el diseño y el espaciado */
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin: 0 auto;
-	padding: 30px;
-	width: 100%;
-	max-width: 600px;
-	background: #1e1e1e;
-	border-radius: 10px;
-	box-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
-	gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
+    gap: 20px;
 }
-
 
 /* Aseguramos que todo se vea bien en dispositivos pequeños */
 @media (max-width: 600px) {
-	h1 {
-		font-size: 24px;
-	}
+    h1 {
+        font-size: 24px;
+    }
 
-	#password {
-		width: 90%;
-	}
+    #password {
+        width: 90%;
+    }
 
-	button {
-		width: 90%;
-	}
+    button {
+        width: 90%;
+    }
 
-	.password-strength {
-		font-size: 16px;
-	}
+    .password-strength {
+        font-size: 16px;
+    }
 }

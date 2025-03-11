@@ -38,3 +38,43 @@
 .nav-links a:hover {
     color: #00e676;
 }
+
+/* Estilos del menú desplegable */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1e1e1e;
+    box-shadow: 0 8px 16px rgba(0, 230, 118, 0.5);
+    z-index: 1;
+    min-width: 160px;
+}
+
+.dropdown-content a {
+    color: #e0e0e0;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #333;
+}
+
+/* Mostrar el menú desplegable cuando se hace hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}

@@ -2,53 +2,117 @@ import { GETuserData } from "../../../BackEnd/Queries/GET/getUserData.js";
 import { getMasterPassword } from "../../../BackEnd/Queries/GET/auth/getUserMasterPassword.js";
 import { secretKey } from "../../../env.js";
 
-//verifica la contraseña maestra de la DB vs la contraseña maestra que puso el usuario
-//nota: se debe comparar (como lo hizo en el login)
-async function verifyPassword(){
-     let masterPassword = document.getElementById('master-password').value;
-     try{
-          const masterPasswordData = await getMasterPassword(userData.usernme)
-          if(masterPassword === masterPasswordData){
-               alert("contraseñas coinciden")
-               //redirigir al apartado donde se mostrará la informacion de la base de datos desencriptada
-          }else{
-               alert("contraseñas no coincide")
-          }
-     }catch(error){
-          console.log("error en masterpassword"+ error)
+document.addEventListener("DOMContentLoaded", () => {
+     if (typeof window.bcrypt === "undefined") {
+         console.warn("⚠ bcrypt no está en window. Intentando cargarlo manualmente.");
+         window.bcrypt = dcodeIO.bcrypt;
      }
-     //hideMasterPasswordDialog();
+ 
+     if (window.bcrypt) {
+         console.log("✅ bcrypt ahora está disponible.");
+     } else {
+         console.error("❌ No se pudo cargar bcrypt.");
+     }
+ });
+console.log(typeof bcrypt);
+
+
+let savedPasswords = []; // Almacenará los datos encriptados
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const user = sessionStorage.getItem("Usuario");
+
+    if (!user) {
+        alert("No se encontró la información del usuario en la sesión.");
+        return;
+    }
+
+    const userData = JSON.parse(user);
+    const passwordList = document.querySelector(".container ul"); // Lista donde se mostrarán las contraseñas
+
+    try {
+        const data = await GETuserData(userData.PK_userId); // Obtiene las contraseñas y descripciones de la BD
+
+        if (!data || data.length === 0) {
+            passwordList.innerHTML = "<li>No hay contraseñas guardadas.</li>";
+            return;
+        }
+
+        passwordList.innerHTML = ""; // Limpia la lista antes de agregar elementos
+        savedPasswords = data; // Guarda los datos encriptados para usarlos después
+
+        // Crea una lista con "Contraseña 1", "Contraseña 2", etc.
+        data.forEach((item, index) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Contraseña ${index + 1}`;
+            listItem.onclick = () => showMasterPasswordDialog(index); // Pide la contraseña maestra al hacer clic
+            passwordList.appendChild(listItem);
+        });
+    } catch (error) {
+        console.error("Error obteniendo las contraseñas:", error);
+    }
+});
+
+// Función para mostrar el cuadro de contraseña maestra
+function showMasterPasswordDialog(index) {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("master-password-dialog").style.display = "block";
+
+    // Asigna la verificación al botón
+    document
+        .getElementById("verify-password-btn")
+        .addEventListener("click", () => verifyMasterPassword(index), { once: true });
 }
 
-document.addEventListener("DOMContentLoaded", async function() {
-     //obtiene el usuario registrado actual. sus datos estan guardados en un almacenamiento local, por lo que si se cierra la pestaña se borran
+// Oculta el cuadro de diálogo
+function hideMasterPasswordDialog() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("master-password-dialog").style.display = "none";
+}
+
+async function verifyMasterPassword(index) {
+     let masterPasswordInput = document.getElementById("master-password").value;
      const user = sessionStorage.getItem("Usuario");
-     console.log(user)
-
+ 
      if (!user) {
-          alert("No se encontró la información del usuario en la sesión.");
-          return;
+         alert("No se encontró la información del usuario en la sesión.");
+         return;
      }
-     const userData = JSON.parse(user); // Convertir a objeto JSON
-
-     try{
-          const data = await GETuserData(userData.PK_userId) //trae la informacion de las contraseñas (titulo, contraseña, descripcion. todo lo hace con respecto al id del usaurio que se le pasa, es decir, el que esta almacenado localmente )
-
-          //comienza la desencriptacion de los datos
-          const byteTitle = CryptoJS.AES.decrypt(data.title, secretKey);
-          const bytePassword = CryptoJS.AES.decrypt(data.password, secretKey);
-          const byteDescription = CryptoJS.AES.decrypt(data.description, secretKey);
-
-          //finaliza la desencriptacion de los datos almacenados del usuario
-          const decryptTitle = byteTitle.toString(CryptoJS.enc.Utf8);
-          const decryptPassword = bytePassword.toString(CryptoJS.enc.Utf8);
-          const decryptDescription = byteDescription.toString(CryptoJS.enc.Utf8);
-
-          //muestra si los desencripta bien
-          console.log("dT "+ decryptTitle)
-          console.log("dP "+ decryptPassword)
-          console.log("dD "+ decryptDescription)
-     }catch(error){
-          console.error("error", error)
+ 
+     const userData = JSON.parse(user);
+ 
+     try {
+         const storedMasterPassword = await getMasterPassword(userData.username); // Obtiene el hash bcrypt de la BD
+ 
+         // Compara la contraseña ingresada con el hash de la BD
+         const isMatch = await bcrypt.compare(masterPasswordInput, storedMasterPassword);
+ 
+         if (isMatch) {
+             alert("Contraseña maestra verificada. Mostrando detalles...");
+ 
+             // Desencripta la contraseña y la descripción
+             const encryptedPassword = savedPasswords[index].password;
+             const encryptedDescription = savedPasswords[index].description;
+ 
+             const bytePassword = CryptoJS.AES.decrypt(encryptedPassword, secretKey);
+             const byteDescription = CryptoJS.AES.decrypt(encryptedDescription, secretKey);
+ 
+             const decryptedPassword = bytePassword.toString(CryptoJS.enc.Utf8);
+             const decryptedDescription = byteDescription.toString(CryptoJS.enc.Utf8);
+ 
+             // Mostrar datos desencriptados
+             document.querySelectorAll(".container ul li")[index].innerHTML = 
+                 `<strong>Contraseña:</strong> ${decryptedDescription}<br>
+                  <strong>Descripción:</strong> ${decryptedPassword}`;
+ 
+         } else {
+             alert("Contraseña maestra incorrecta.");
+         }
+     } catch (error) {
+         console.log("Error verificando la contraseña maestra: " + error);
      }
-});
+ 
+     hideMasterPasswordDialog();
+ }
+ 
+ 

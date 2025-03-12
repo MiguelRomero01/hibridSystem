@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="contraseñas.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -39,11 +40,17 @@
         <form id="master-password-form">
             <label for="master-password">Ingresa la contraseña maestra:</label><br />
             <input type="password" id="master-password" name="master-password" required /><br /><br />
-            <button type="button" onclick="verifyMasterPassword()">Verificar contraseña</button>
+            <button type="button" id="verify-password-btn">Verificar contraseña</button>
         </form>
     </div>
 
     <script>
+        
+    setTimeout(() => {
+        console.log("bcrypt:", typeof bcrypt);
+    }, 2000); // Espera 2 segundos para verificar
+
+
         //muestra un cuadro de dialogo para poner la contraseña
         function showMasterPasswordDialog() {
             document.getElementById('overlay').style.display = 'block';
@@ -66,5 +73,7 @@
     </script>
 
     <script src="contraseñas.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+
 </body>
 </html>

@@ -2,7 +2,7 @@ import { GETuserCredentials } from "/BackEnd/Queries/GET/auth/GETuserCredentials
 
 // Verificar que bcrypt esté cargado
 if (typeof window.bcrypt === "undefined") {
-    console.error("❌ bcrypt no está disponible. Asegúrate de incluirlo en el HTML.");
+    console.error("❌ bcrypt no está disponible. ");
 } else {
     console.log("✅ bcrypt cargado correctamente.");
 }

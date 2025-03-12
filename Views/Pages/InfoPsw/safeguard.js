@@ -33,6 +33,10 @@ document.getElementById('saveguard-form').addEventListener("submit", async funct
 
           const response = await POSTuserData(user.PK_userId, titleEncrypted, descriptionEncrypted, passwordToSaveEncrypted);
           console.log("Datos enviados con éxito:", response);
+          const confirmation = confirm("¡Contraseña guardada con éxito! ¿Deseas volver al inicio?");
+          if (confirmation) {
+               window.location.href = "../savedpassw/contraseñas.html"; 
+          }
      } catch (error) {
           console.error("Error enviando los datos a postUserData:", error);
      }
